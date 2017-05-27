@@ -89,7 +89,7 @@ class Index extends Controller
         if($result){
             //设置成功后跳转页面的地址，默认的返回页面是$_SERVER['HTTP_REFERER']
             //$this->success('登入成功','index/index/zhuye',array('map' =>$map));
-            $this->redirect('index/index/zhuye',$data);
+            $this->redirect('index/index/zhuye',array('name'=>$data));
         } else {
             //错误页面的默认跳转页面是返回前一页，通常不需要设置
             $this->error('登入失败');
@@ -149,9 +149,15 @@ class Index extends Controller
 
     public function zhuye()
     {
-       //echo $data;
-        $this->assign('name','admin');
-        return $this->fetch('zhuye');
+       
+       $name ="admin";
+        $result = Db::table('agenda')->where('username',$name)->select();
+        dump($result);
+        /* $this->assign('name',$name);
+        $this->assign('timestart','-16');
+        $this->assign('timeend','-17-30');
+        $this->assign('time','4 PM - 5:30 PM');
+       return $this->fetch('zhuye');*/
 
     }
     
