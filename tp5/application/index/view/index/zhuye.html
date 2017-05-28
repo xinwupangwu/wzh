@@ -344,9 +344,9 @@ document.getElementById("info2").innerHTML=date;
 								<!-- Events list -->
 								<div class="agenda-events agenda-day1">
 
-									<span class="agenda-event anthracite-gradient from{$timestart} to{$timeend}">
-										<time>{$time}</time>
-										Event description
+									<span class="{$result[0]['status']} from{$result[0]['timestart']} to{$result[0]['timeend']}">
+										<time>{$result[0]['timeprocess']}</time>
+										{$result[0]['thing']}
 									</span>
 
 								</div>

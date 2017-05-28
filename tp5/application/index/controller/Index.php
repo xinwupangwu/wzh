@@ -7,7 +7,7 @@ use think\Db;
 use think\Jump;
 class Index extends Controller
 {
-
+    protected $flag ;
    
 	public function conf()
 	{
@@ -82,7 +82,8 @@ class Index extends Controller
         //dump($request->post('pwd')); 
         $map['name'] = $request->post('name');
         $map['pwd'] = $request->post('pwd');
-    $data = $map['name'];
+        $data = $map['name'];
+        $this->flag = $data;
 
         // 把查询条件传入查询方法
         $result = Db::table('user')->where($map)->find(); 
@@ -147,23 +148,27 @@ class Index extends Controller
 
     }
 
-    public function zhuye()
+    public function zhuye($name = "")
     {
        
-       $name ="admin";
+       //$name ="admin";
         $result = Db::table('agenda')->where('username',$name)->select();
-        dump($result);
-        /* $this->assign('name',$name);
-        $this->assign('timestart','-16');
-        $this->assign('timeend','-17-30');
-        $this->assign('time','4 PM - 5:30 PM');
-       return $this->fetch('zhuye');*/
+        //dump($result);
+       $this->assign('name',$name);
+        $this->assign('result',$result);
+       return $this->fetch('zhuye');
 
     }
     
 
     public function message()
     {
+        $name ="admin";
+        $result = Db::table('message')->where('mrec',$name)->select();
+        if($result)
+        {
+            $tis->assign('result',$result);
+        }
         return view();
     }
 
