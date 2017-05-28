@@ -343,51 +343,35 @@ document.getElementById("info2").innerHTML=date;
 
 								<!-- Events list -->
 								<div class="agenda-events agenda-day1">
+								{volist name="resultday1" id="vo"}
+										<span class="{$vo['status']} from{$vo['timestart']} to{$vo['timeend']}">
+										<time>{$vo['timeprocess']}</time>
+										{$vo['thing']}
+										</span>				
+								{/volist}
+								</div>	
 
-									<span class="{$result[0]['status']} from{$result[0]['timestart']} to{$result[0]['timeend']}">
-										<time>{$result[0]['timeprocess']}</time>
-										{$result[0]['thing']}
-									</span>
-
-								</div>
 
 								<!-- Events list -->
 								<div class="agenda-events agenda-day2">
-
-									<div class="dark-stripes from-12 to-14"></div>
-
-									<a href="#" class="agenda-event from-8 to-11">
-										<time>8 AM - 11 AM</time>
-										Event description
-									</a>
-
-									<span class="agenda-event from-16-30 to-17-30">
-										<time>4:30 PM - 5:30 PM</time>
-										Event description
-									</span>
+									{volist name="resultday2" id="vo"}
+										<span class="{$vo['status']} from{$vo['timestart']} to{$vo['timeend']}">
+										<time>{$vo['timeprocess']}</time>
+										{$vo['thing']}
+										</span>				
+									{/volist}
 
 								</div>
 
 								<!-- Events list -->
 								<div class="agenda-events agenda-day3">
-
-									<div class="dark-stripes from-12 to-18"></div>
-
-									<a href="#" class="agenda-event from-7 to-9">
-										<time>7 AM - 9 AM</time>
-										Event description
-										<span class="ribbon tiny"><span class="ribbon-inner orange-gradient">Priv</span></span>
-									</a>
-
-									<span class="agenda-event from-10 to-11-30 event-1-on-2">
-										<time>10 AM - 11:30 AM</time>
-										Event description
-									</span>
-
-									<span class="agenda-event from-11 to-13 event-2-on-2 anthracite-gradient">
-										<time>11 AM - 1 PM</time>
-										Event description
-									</span>
+									{volist name="resultday3" id="vo"}
+										<span class="{$vo['status']} from{$vo['timestart']} to{$vo['timeend']}">
+										<time>{$vo['timeprocess']}</time>
+										{$vo['thing']}
+										</span>				
+									{/volist}
+									
 
 									<div class="agenda-now" style="top:63.75%"><span>03:23</span></div>
 
@@ -396,66 +380,48 @@ document.getElementById("info2").innerHTML=date;
 								<!-- Events list -->
 								<div class="agenda-events agenda-day4">
 
-									<div class="dark-stripes from-12 to-14"></div>
-
-									<a href="#" class="agenda-event from-9 to-10">
-										<time>9 AM - 10 AM</time>
-										Event description
-									</a>
-
-									<span class="agenda-event from-16 to-17-30 event-1-on-2">
-										<time>4 PM - 5:30 PM</time>
-										Event description
-									</span>
-
-									<span class="agenda-event from-17 to-19-30 event-2-on-2 blue-gradient">
-										<time>5 PM - 7:30 PM</time>
-										Event description
-									</span>
+									{volist name="resultday4" id="vo"}
+										<span class="{$vo['status']} from{$vo['timestart']} to{$vo['timeend']}">
+										<time>{$vo['timeprocess']}</time>
+										{$vo['thing']}
+										</span>				
+									{/volist}
 
 								</div>
 
 								<!-- Events list -->
 								<div class="agenda-events agenda-day5">
 
-									<div class="dark-stripes from-12 to-14"></div>
-
-									<a href="#" class="agenda-event from-8 to-9">
-										<time>8 AM - 9 AM</time>
-										Event description
-									</a>
-
-									<span class="agenda-event from-11 to-13 anthracite-gradient">
-										<time>11 AM - 1 PM</time>
-										Event description
-									</span>
-
-									<span class="agenda-event from-17 to-19-30 blue-gradient">
-										<time>5 PM - 7:30 PM</time>
-										Event description
-									</span>
+									{volist name="resultday5" id="vo"}
+										<span class="{$vo['status']} from{$vo['timestart']} to{$vo['timeend']}">
+										<time>{$vo['timeprocess']}</time>
+										{$vo['thing']}
+										</span>				
+									{/volist}
 
 								</div>
 
 								<!-- Events list -->
 								<div class="agenda-events agenda-day6">
 
-									<div class="dark-stripes from-12 to-14"></div>
-
-									<span class="agenda-event from-10 to-13 anthracite-gradient">
-										<time>10 AM - 1 PM</time>
-										Event description
-									</span>
-
-									<span class="agenda-event from-16 to-18-30">
-										<time>4 PM - 6:30 PM</time>
-										Event description
-									</span>
+									{volist name="resultday6" id="vo"}
+										<span class="{$vo['status']} from{$vo['timestart']} to{$vo['timeend']}">
+										<time>{$vo['timeprocess']}</time>
+										{$vo['thing']}
+										</span>				
+									{/volist}
 
 								</div>
 
 								<!-- Events list -->
-								<div class="agenda-events agenda-day7"></div>
+								<div class="agenda-events agenda-day7">
+									{volist name="resultday7" id="vo"}
+										<span class="{$vo['status']} from{$vo['timestart']} to{$vo['timeend']}">
+										<time>{$vo['timeprocess']}</time>
+										{$vo['thing']}
+										</span>				
+									{/volist}
+								</div>
 
 							</div>
 

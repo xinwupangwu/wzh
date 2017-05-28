@@ -152,11 +152,52 @@ class Index extends Controller
     {
        
        //$name ="admin";
-        $result = Db::table('agenda')->where('username',$name)->select();
-        //dump($result);
-       $this->assign('name',$name);
-        $this->assign('result',$result);
-       return $this->fetch('zhuye');
+        $resultday1 = Db::table('agenda')
+        ->where('username',$name)
+        ->where('day',1)
+        ->select();
+
+        $resultday2 = Db::table('agenda')
+        ->where('username',$name)
+        ->where('day',2)
+        ->select();
+
+        $resultday3 = Db::table('agenda')
+        ->where('username',$name)
+        ->where('day',3)
+        ->select();
+
+        $resultday4 = Db::table('agenda')
+        ->where('username',$name)
+        ->where('day',4)
+        ->select();
+
+        $resultday5 = Db::table('agenda')
+        ->where('username',$name)
+        ->where('day',5)
+        ->select();
+
+        $resultday6 = Db::table('agenda')
+        ->where('username',$name)
+        ->where('day',6)
+        ->select();
+
+        $resultday7 = Db::table('agenda')
+        ->where('username',$name)
+        ->where('day',7)
+        ->select();
+
+    $this->assign('name',$name);
+    $this->assign('resultday1',$resultday1);
+    $this->assign('resultday2',$resultday2);
+    $this->assign('resultday3',$resultday3);
+    $this->assign('resultday4',$resultday4);
+    $this->assign('resultday5',$resultday5);
+    $this->assign('resultday6',$resultday6);
+    $this->assign('resultday7',$resultday7);
+
+
+    return $this->fetch('zhuye');
 
     }
     
@@ -164,27 +205,84 @@ class Index extends Controller
     public function message()
     {
         $name ="admin";
-        $result = Db::table('message')->where('mrec',$name)->select();
-        if($result)
-        {
-            $tis->assign('result',$result);
-        }
-        return view();
+        $resultcli = Db::table('message')
+        ->where('mrec',$name)
+        ->where('mstatus','Clients')
+        ->select();
+
+        $resultfri = Db::table('message')
+        ->where('mrec',$name)
+        ->where('mstatus','Friends')
+        ->select();
+       
+        $this->assign('name',$name);
+        $this->assign('resultcli',$resultcli);
+        $this->assign('resultfri',$resultfri);
+
+        return $this->fetch('message');
     }
 
     public function agenda()
     {
+        $name ="admin";
+        $resultday1 = Db::table('agenda')
+        ->where('username',$name)
+        ->where('day',1)
+        ->select();
 
-        return view();
+        $resultday2 = Db::table('agenda')
+        ->where('username',$name)
+        ->where('day',2)
+        ->select();
+
+        $resultday3 = Db::table('agenda')
+        ->where('username',$name)
+        ->where('day',3)
+        ->select();
+
+        $resultday4 = Db::table('agenda')
+        ->where('username',$name)
+        ->where('day',4)
+        ->select();
+
+        $resultday5 = Db::table('agenda')
+        ->where('username',$name)
+        ->where('day',5)
+        ->select();
+
+        $resultday6 = Db::table('agenda')
+        ->where('username',$name)
+        ->where('day',6)
+        ->select();
+
+        $resultday7 = Db::table('agenda')
+        ->where('username',$name)
+        ->where('day',7)
+        ->select();
+
+    $this->assign('name',$name);
+    $this->assign('resultday1',$resultday1);
+    $this->assign('resultday2',$resultday2);
+    $this->assign('resultday3',$resultday3);
+    $this->assign('resultday4',$resultday4);
+    $this->assign('resultday5',$resultday5);
+    $this->assign('resultday6',$resultday6);
+    $this->assign('resultday7',$resultday7);
+
+        return $this->fetch('agenda');
     }
 
     public function contacts()
     {
-        return view();
+        $name ="admin";
+        $this->assign('name',$name);
+        return $this->fetch('contacts');
     }
     
     public function medias()
     {
-        return view();
+       $name ="admin";
+        $this->assign('name',$name);
+        return $this->fetch('medias');
     }
 }
