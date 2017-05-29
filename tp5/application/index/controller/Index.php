@@ -5,12 +5,14 @@ use think\Request;
 use think\Controller;
 use think\Db;
 use think\Jump;
+use think\Session;
 class Index extends Controller
 {
-    protected $flag ;
+    
    
 	public function conf()
 	{
+
 		dump(config());
 	}
 
@@ -37,6 +39,7 @@ class Index extends Controller
 
         dump($request->post());
 
+       Session::set('name','thinkphp');
         dump($request->session());
         dump($request->cookie());
 
@@ -82,15 +85,15 @@ class Index extends Controller
         //dump($request->post('pwd')); 
         $map['name'] = $request->post('name');
         $map['pwd'] = $request->post('pwd');
-        $data = $map['name'];
-        $this->flag = $data;
+        $data = $request->post('name');
+       Session::set('name',$data);
 
         // 把查询条件传入查询方法
         $result = Db::table('user')->where($map)->find(); 
         if($result){
             //设置成功后跳转页面的地址，默认的返回页面是$_SERVER['HTTP_REFERER']
             //$this->success('登入成功','index/index/zhuye',array('map' =>$map));
-            $this->redirect('index/index/zhuye',array('name'=>$data));
+            $this->redirect('index/index/zhuye');
         } else {
             //错误页面的默认跳转页面是返回前一页，通常不需要设置
             $this->error('登入失败');
@@ -148,10 +151,10 @@ class Index extends Controller
 
     }
 
-    public function zhuye($name = "")
+    public function zhuye()
     {
        
-       //$name ="admin";
+        $name =  Session::get('name');
         $resultday1 = Db::table('agenda')
         ->where('username',$name)
         ->where('day',1)
@@ -204,7 +207,7 @@ class Index extends Controller
 
     public function message()
     {
-        $name ="admin";
+        $name =Session::get('name');
         $resultcli = Db::table('message')
         ->where('mrec',$name)
         ->where('mstatus','Clients')
@@ -224,7 +227,7 @@ class Index extends Controller
 
     public function agenda()
     {
-        $name ="admin";
+        $name =Session::get('name');
         $resultday1 = Db::table('agenda')
         ->where('username',$name)
         ->where('day',1)
@@ -274,15 +277,104 @@ class Index extends Controller
 
     public function contacts()
     {
-        $name ="admin";
+
+        $result = Db::table('user')
+        ->select();
+        $name =Session::get('name');
         $this->assign('name',$name);
+        $this->assign('result',$result);
         return $this->fetch('contacts');
     }
     
     public function medias()
     {
-       $name ="admin";
+       $name =Session::get('name');
         $this->assign('name',$name);
         return $this->fetch('medias');
+    }
+
+
+
+    public function addagenda(Request $request)
+    {
+        
+         $data =[
+        'username' => Session::get('name'),
+        'day' =>$request->post('day'),
+        'timestart' =>'-'.$request->post('timestart'),
+        'timeend' =>'-'.$request->post('timeend'),
+        'timeprocess' =>$request->post('timeprocess'),
+        'thing' =>$request->post('thing'),
+        'status'=>$request->post('status')
+        ];
+
+        $result =  Db::table('agenda')->insert($data);
+        if($result){
+            //设置成功后跳转页面的地址，默认的返回页面是$_SERVER['HTTP_REFERER']
+            $this->success('新增成功','index/index/agenda');
+        } else {
+            //错误页面的默认跳转页面是返回前一页，通常不需要设置
+            $this->error('新增失败');
+        }    
+    }
+
+    public function decagenda(Request $request)
+    {
+        $map['day']=$request->post('day');
+        $map['timeprocess']=$request->post('timeprocess');
+        $map['username']=Session::get('name');        
+        $map['thing']=$request->post('thing');
+        $result = Db::table('agenda')
+        ->where($map)
+        ->delete();
+        if($result){
+            //设置成功后跳转页面的地址，默认的返回页面是$_SERVER['HTTP_REFERER']
+            $this->success('删除成功','index/index/agenda');
+        } else {
+            //错误页面的默认跳转页面是返回前一页，通常不需要设置
+            $this->error('删除失败');
+        }   
+    }
+
+     public function updateuser(Request $request)
+    {
+        
+         $data =[
+        'name' => $request->post('name'),
+        'ustatus' => $request->post('ustatus'),
+        'tag'=>$request->post('tag')
+        ];
+
+        $id = $request->post('id');
+
+        $result =  Db::table('user')
+        ->where('id',$id)
+        ->update($data);
+        if($result){
+            //设置成功后跳转页面的地址，默认的返回页面是$_SERVER['HTTP_REFERER']
+            $this->success('修改成功','index/index/contacts');
+        } else {
+            //错误页面的默认跳转页面是返回前一页，通常不需要设置
+            $this->error('修改失败');
+        }    
+    } 
+
+     public function deluser(Request $request)
+    {
+        $map['id']=$request->post('id');
+        $map['name']=$request->post('name');
+        //$map['ustatus']=$request->post('ustatus');        
+       
+        $result = Db::table('user')
+        ->where($map)
+        ->delete();
+        if($result){
+            //设置成功后跳转页面的地址，默认的返回页面是$_SERVER['HTTP_REFERER']
+            $this->success('删除成功','index/index/contacts');
+        } else {
+            //错误页面的默认跳转页面是返回前一页，通常不需要设置
+            $this->error('删除失败');
+        }   
+
     }
 }

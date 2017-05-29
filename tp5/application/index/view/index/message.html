@@ -94,10 +94,7 @@
 
 		<div class="with-padding">
 
-			<p>This mail client uses the template content panels to provide a fully functional layout accros all devices sizes - try resizing your browser to see how it works!</p>
-
-			<p class="wrapped left-icon icon-info-round">You may also check the <a href="inbox-full-height.html">full height example</a></p>
-
+			
 			<div class="content-panel margin-bottom">
 
 				<div class="panel-navigation silver-gradient">
@@ -117,13 +114,13 @@
 										{volist name="resultcli" id="vo"}
 											<li class="message-menu">
 											<span class="message-status">
-												{if condition="$vo.isstarck == 0 "} 
+												{if condition="$vo.misstarck == 0 "} 
 													<a href="#" class="unstarred" title="Not starred">Not starred</a>
 												{else /} 
 													<a href="#" class="starred" title="Starred">Starred</a>
 												{/if}
 												
-												{if condition="$vo.isread == 0 "} 
+												{if condition="$vo.misread == 0 "} 
 													<a></a>
 												{else /} 
 													<a href="#" class="new-message" title="Mark as read">New</a>
@@ -145,16 +142,16 @@
 									<span><span class="list-count">8</span>Friends</span>
 									<ul class="message-menu">
 										
-										{volist name="resultcli" id="vo"}
+										{volist name="resultfri" id="vo"}
 											<li class="message-menu">
 											<span class="message-status">
-												{if condition="$vo.isstarck == 0 "} 
+												{if condition="$vo.misstarck == 0 "} 
 													<a href="#" class="unstarred" title="Not starred">Not starred</a>
 												{else /} 
 													<a href="#" class="starred" title="Starred">Starred</a>
 												{/if}
 												
-												{if condition="$vo.isread == 0 "} 
+												{if condition="$vo.misread == 0 "} 
 													<a></a>
 												{else /} 
 													<a href="#" class="new-message" title="Mark as read">New</a>
@@ -231,8 +228,8 @@
 
 					<div class="panel-load-target scrollable with-padding" style="height:450px">
 
-						<h2 class="thin mid-margin-bottom">{$vo.mtitle}</h2>
-						<h4 class="no-margin-top">{$vo.msend}</h4>
+						<h2 class="thin mid-margin-bottom">$vo.mtitle</h2>
+						<h4 class="no-margin-top">$vo.msend</h4>
 
 						<div class="large-box-shadow white-gradient with-border">
 
@@ -250,7 +247,7 @@
 							</div>
 
 							<div class="with-padding">
-								{$vo.mthing}
+								$vo.mthing
 
 								<div class="left-border grey">
 									<p>Hello,</p>
@@ -273,8 +270,7 @@
 
 			</div>
 
-			<p class="wrapped left-icon icon-info-round">This is only a front-end style, the demo content is static. All AJAX features are functional, but you need to connect them to your own server mail management script</p>
-
+	
 		</div>
 
 	</section>
