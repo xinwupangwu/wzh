@@ -90,6 +90,7 @@ class Index extends Controller
 
         // 把查询条件传入查询方法
         $result = Db::table('user')->where($map)->find(); 
+        Session::set('uid',$result['id']);
         if($result){
             //设置成功后跳转页面的地址，默认的返回页面是$_SERVER['HTTP_REFERER']
             //$this->success('登入成功','index/index/zhuye',array('map' =>$map));
@@ -377,4 +378,63 @@ class Index extends Controller
         }   
 
     }
+
+        public function personal()
+    {   
+        $name =Session::get('name');
+        $this->assign('name',$name);
+        $result = Db::table('user')
+        ->where('name',$name)
+        ->find();
+        $this->assign('result',$result);
+        return $this->fetch('personal');
+            
+    }
+
+    public function updatapersonal(Request $request)
+    {
+        $id = $request->post('id');
+        $data =[
+        'name' => $request->post('name'),
+        'sex' =>$request->post('sex'),
+        'eamil'=>$request->post('email'),
+        'qq'=>$request->post('qq'),
+        'tel'=>$request->post('tel')
+        ];
+
+        $result =  Db::table('user')
+        ->where('id',$id)
+        ->update($data);
+        if($result){
+            //设置成功后跳转页面的地址，默认的返回页面是$_SERVER['HTTP_REFERER']
+            $this->success('个人信息修改成功','index/index/personal');
+        } else {
+            //错误页面的默认跳转页面是返回前一页，通常不需要设置
+            $this->error('个人信息修改失败');
+        }    
+
+    }
+
+     public function updatapwd(Request $request)
+    {
+        $id = Session::get('uid');
+        $data =[
+        'pwd'=>$request->post('xpwd')
+        ];
+
+        $result =  Db::table('user')
+        ->where('id',$id)
+        ->update($data);
+        if($result){
+            //设置成功后跳转页面的地址，默认的返回页面是$_SERVER['HTTP_REFERER']
+            $this->success('密码修改成功','index/index/personal');
+        } else {
+            //错误页面的默认跳转页面是返回前一页，通常不需要设置
+            $this->error('密码修改失败');
+        }    
+
+    }
+
+
+
 }
