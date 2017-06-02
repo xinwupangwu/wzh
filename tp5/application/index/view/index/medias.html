@@ -39,6 +39,9 @@
 	<link rel="stylesheet" href="__PUBLIC__/css/styles/progress-slider.css?v=1">
 	<link rel="stylesheet" href="__PUBLIC__/css/styles/switches.css?v=1">
 	<link rel="stylesheet" href="__PUBLIC__/css/styles/files.css?v=1">
+	<link rel="stylesheet" href="__PUBLIC__/css/styles/form.css?v=1">
+	<link rel="stylesheet" href="__PUBLIC__/css/styles/table.css?v=1">
+	<link rel="stylesheet" href="__PUBLIC__/css/styles/modal.css?v=1">
 
 	<!-- JavaScript at bottom except for Modernizr -->
 	<script src="__PUBLIC__/js/libs/modernizr.custom.js"></script>
@@ -89,237 +92,68 @@
 		<noscript class="message black-gradient simpler">Your browser does not support JavaScript! Some features won't work as expected...</noscript>
 
 		<hgroup id="main-title" class="thin">
-			<h1>Medias</h1>
+			<h1>Shared file</h1>
 		</hgroup>
 
+		<section role="main" id="main">
+
+		<form action="upfile" method="post" enctype="multipart/form-data">
+
+		<p class="button-height">
+			<input type="file" name="file" id="file" value="请选择文件" class="file" multiple>
+		</p>
+	
+		<p class="button-height">
+			<button type="submit" class="button big">Button</button>
+		</p>
+	
+		</form>
+		
+
+
 		<div class="with-padding">
+	
+			<table class="table responsive-table" id="sorting-advanced">
 
-			<p>This file explorer uses the template content panels to provide a fully functional explorer accros all devices sizes - try resizing your browser to see how it works!</p>
+				<thead>
+					<tr>
+						<th scope="col"><input type="checkbox" name="check-all" id="check-all" value="1"></th>
+						<th scope="col">文件名</th>
+						<th scope="col" width="15%" class="align-center hide-on-mobile">文件状态</th>
+						<th scope="col" width="15%" class="align-center hide-on-mobile-portrait">文件类型</th>
+						<th scope="col" width="60" class="align-center">Actions</th>
+					</tr>
+				</thead>
 
-			<div class="content-panel margin-bottom">
+				<tfoot>
+					<tr>
+						<td colspan="6">
+							3 entries found
+						</td>
+					</tr>
+				</tfoot>
 
-				<div class="panel-navigation silver-gradient">
+				<tbody>					
+						{volist name="result" id="vo"}
+						<tr>
+						<th scope="row" class="checkbox-cell"><input type="checkbox" name="checked[]" id="check-1" value="1"></th>
+						<td>{$vo.filename}</td>
+						<td>{$vo.status}</td>
+						<td>{$vo.filezui}</td>
+						<td class="low-padding align-center"><a href="{:url('index/index/download')}" class="button compact icon-gear">LOAD</a><a href="javascript:openModaldelect()" class="button compact icon-gear">DEL</a></td>
+						</tr>		
+						{/volist}
+					
+				</tbody>
 
-					<div class="panel-control">
-						<a href="#" class="button icon-undo">Refresh</a>
-					</div>
-
-					<div class="panel-load-target scrollable" style="height:490px">
-
-						<div class="navigable">
-
-							<ul class="files-list mini open-on-panel-content">
-
-								<li class="with-right-arrow grey-arrow">
-									<span class="icon folder-image"></span>
-									<b>Folder</b>
-									<ul class="files-list mini">
-
-										<li class="with-right-arrow grey-arrow">
-											<span class="icon folder-image"></span>
-											<b>Folder</b>
-											<ul class="files-list mini">
-
-												<li>
-													<a href="ajax-demo/explorer-files.html" class="file-link">
-														<span class="icon folder-docs"></span>
-														Simple files list
-													</a>
-												</li>
-
-												<li>
-													<a href="ajax-demo/explorer-files-controls.html" class="file-link">
-														<span class="icon folder-program"></span>
-														Files with options
-													</a>
-												</li>
-
-												<li>
-													<a href="ajax-demo/explorer-gallery.html" class="file-link">
-														<span class="icon file-png"></span>
-														Simple gallery
-													</a>
-												</li>
-
-												<li>
-													<a href="ajax-demo/explorer-albums.html" class="file-link">
-														<span class="icon file-gif"></span>
-														Albums gallery
-													</a>
-												</li>
-
-												<li>
-													<a href="ajax-demo/explorer-gallery-controls.html" class="file-link">
-														<span class="icon file-jpg"></span>
-														Gallery controls
-													</a>
-												</li>
-
-											</ul>
-										</li>
-
-										<li>
-											<a href="ajax-demo/explorer-files.html" class="file-link">
-												<span class="icon folder-docs"></span>
-												Simple files list
-											</a>
-										</li>
-
-										<li>
-											<a href="ajax-demo/explorer-files-controls.html" class="file-link">
-												<span class="icon folder-program"></span>
-												Files with options
-											</a>
-										</li>
-
-										<li>
-											<a href="ajax-demo/explorer-gallery.html" class="file-link">
-												<span class="icon file-png"></span>
-												Simple gallery
-											</a>
-										</li>
-
-										<li>
-											<a href="ajax-demo/explorer-albums.html" class="file-link">
-												<span class="icon file-gif"></span>
-												Albums gallery
-											</a>
-										</li>
-
-										<li>
-											<a href="ajax-demo/explorer-gallery-controls.html" class="file-link">
-												<span class="icon file-jpg"></span>
-												Gallery controls
-											</a>
-										</li>
-
-									</ul>
-								</li>
-
-								<li>
-									<a href="ajax-demo/explorer-files.html" class="file-link">
-										<span class="icon folder-docs"></span>
-										Simple files list
-									</a>
-									<div class="controls show-on-parent-hover">
-										<span class="button-group compact children-tooltip">
-											<a href="#" class="button icon-gear" title="Edit properties">Edit</a>
-											<a href="#" class="button icon-trash" title="Move to trash"></a>
-										</span>
-									</div>
-								</li>
-
-								<li>
-									<a href="ajax-demo/explorer-files-controls.html" class="file-link">
-										<span class="icon folder-program"></span>
-										Files with options
-									</a>
-									<div class="controls show-on-parent-hover">
-										<span class="button-group compact children-tooltip">
-											<a href="#" class="button icon-gear" title="Edit properties">Edit</a>
-											<a href="#" class="button icon-trash" title="Move to trash"></a>
-										</span>
-									</div>
-								</li>
-
-								<li>
-									<a href="ajax-demo/explorer-gallery.html" class="file-link">
-										<span class="icon file-png"></span>
-										Simple gallery
-									</a>
-									<div class="controls show-on-parent-hover">
-										<span class="button-group compact children-tooltip">
-											<a href="#" class="button icon-gear" title="Edit properties">Edit</a>
-											<a href="#" class="button icon-trash" title="Move to trash"></a>
-										</span>
-									</div>
-								</li>
-
-								<li>
-									<a href="ajax-demo/explorer-albums.html" class="file-link">
-										<span class="icon file-gif"></span>
-										Albums gallery
-									</a>
-									<div class="controls show-on-parent-hover">
-										<span class="button-group compact children-tooltip">
-											<a href="#" class="button icon-gear" title="Edit properties">Edit</a>
-											<a href="#" class="button icon-trash" title="Move to trash"></a>
-										</span>
-									</div>
-								</li>
-
-								<li>
-									<a href="ajax-demo/explorer-gallery-controls.html" class="file-link">
-										<span class="icon file-jpg"></span>
-										Gallery controls
-									</a>
-									<div class="controls show-on-parent-hover">
-										<span class="button-group compact children-tooltip">
-											<a href="#" class="button icon-gear" title="Edit properties">Edit</a>
-											<a href="#" class="button icon-trash" title="Move to trash"></a>
-										</span>
-									</div>
-								</li>
-
-							</ul>
-
-						</div>
-
-					</div>
-
-				</div>
-
-				<div class="panel-content linen">
-
-					<div class="panel-control align-right">
-						<span class="progress thin" style="width: 40px">
-							<span class="progress-bar green-gradient" style="width: 35%"></span>
-						</span>
-						Used: 35%
-						<a href="#" class="button icon-cloud-upload margin-left">Add file...</a>
-					</div>
-
-					<div class="panel-load-target scrollable with-padding" style="height:450px">
-
-						<p class="message icon-info-round white-gradient">Use the icons below or the sidebar to navigate in the files</p>
-
-						<ul class="files-icons on-dark open-on-panel-content">
-
-							<li><a href="ajax-demo/explorer-files.html" class="file-link">
-								<span class="icon folder-open"></span>
-								Simple files list
-							</a></li>
-
-							<li><a href="ajax-demo/explorer-files-controls.html" class="file-link">
-								<span class="icon folder-open"></span>
-								Files with options
-							</a></li>
-
-							<li><a href="ajax-demo/explorer-gallery.html" class="file-link">
-								<span class="icon folder-image"></span>
-								Simple gallery
-							</a></li>
-
-							<li><a href="ajax-demo/explorer-albums.html" class="file-link">
-								<span class="icon folder-image"></span>
-								Albums gallery
-							</a></li>
-
-							<li><a href="ajax-demo/explorer-gallery-controls.html" class="file-link">
-								<span class="icon folder-image"></span>
-								Gallery controls
-							</a></li>
-
-						</ul>
-					</div>
-
-				</div>
-
-			</div>
-
-			<p class="wrapped left-icon icon-info-round">This is only a front-end style, the demo content is static. All AJAX features are functional, but you need to connect them to your own server file management script</p>
+			</table>
 
 		</div>
+
+
+	</section>
+
+	
 
 	</section>
 	<!-- End main content -->
@@ -366,13 +200,68 @@
 				<li class="title-menu">Today's event</li>
 				<li>
 					<ul class="calendar-menu">
+						{volist name="resultnow" id="vo"}
 						<li>
-							<a href="#" title="See event">
-								<time datetime="2011-02-24"><b>24</b> Feb</time>
-								<small class="green">10:30</small>
-								Event's description
+							<a href="{:url('index/index/agenda')}" title="See event">
+								<time ><b><span id="idata"></span></b> <span id="imonth"></span></time>
+								<small class="green">
+									<script type="text/javascript">
+									var d = new Date()
+									var date=d.getDate();
+									var month=d.getMonth();
+									switch(month+1)
+{
+
+	case 1:
+	month = "Jan";
+	break;
+	case 2:
+	month = "Feb";
+	break;
+	case 3:
+	month = "Mar";
+	break;
+	case 4:
+	month = "Apr";
+	break;
+	case 5:
+	month = "MAY";
+	break;
+	case 6:
+	month = "Jun";
+	break;
+	case 7:
+	month = "Jul";
+	break;
+	case 8:
+	month = "Aug";
+	break;
+	case 9:
+	month = "Sep";
+	break;
+	case 10:
+	month = "Oct";
+	break;
+	case 11:
+	month = "Nov";
+	break;
+	case 12:
+	month = "Dec";
+	break;
+	default:
+	month = "this is a bug";
+}
+									 document.getElementById('idata').innerHTML=date;
+									 document.getElementById('imonth').innerHTML=month;
+									document.write(d.getHours())
+									document.write(":")
+									document.write(d.getMinutes())
+									</script>
+								</small>
+							{$vo.thing}
 							</a>
 						</li>
+						{/volist}
 					</ul>
 				</li>
 				<li class="title-menu">New messages</li>
@@ -464,6 +353,22 @@
 			}
 		});
 
+
+		// Table sort - DataTables
+		var table = $('#sorting-advanced');
+		table.dataTable({
+			'aoColumnDefs': [
+				{ 'bSortable': false, 'aTargets': [ 0, 5 ] }
+			],
+			'sPaginationType': 'full_numbers',
+			'sDom': '<"dataTables_header"lfr>t<"dataTables_footer"ip>',
+			'fnInitComplete': function( oSettings )
+			{
+				// Style length select
+				table.closest('.dataTables_wrapper').find('.dataTables_length select').addClass('select blue-gradient glossy').styleSelect();
+				tableStyled = true;
+			}
+		});
 	</script>
 </body>
 </html>

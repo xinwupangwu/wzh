@@ -60,6 +60,10 @@ class Index extends Controller
         $data = Db::query('select * from user where id =?',[1]);
         dump($data);
 
+        echo date('w');
+
+        dump(Session::get('resultnow'));
+
 
     }
 
@@ -86,11 +90,15 @@ class Index extends Controller
         $map['name'] = $request->post('name');
         $map['pwd'] = $request->post('pwd');
         $data = $request->post('name');
+        //session 获得 name
        Session::set('name',$data);
 
         // 把查询条件传入查询方法
         $result = Db::table('user')->where($map)->find(); 
+
+        //session 获得 id
         Session::set('uid',$result['id']);
+
         if($result){
             //设置成功后跳转页面的地址，默认的返回页面是$_SERVER['HTTP_REFERER']
             //$this->success('登入成功','index/index/zhuye',array('map' =>$map));
@@ -156,6 +164,7 @@ class Index extends Controller
     {
        
         $name =  Session::get('name');
+
         $resultday1 = Db::table('agenda')
         ->where('username',$name)
         ->where('day',1)
@@ -191,6 +200,15 @@ class Index extends Controller
         ->where('day',7)
         ->select();
 
+        $resultnow = Db::table('agenda')
+        ->where('username',$name)
+        ->where('day',date('w')+1)
+        ->select();
+
+        //session 获得agendanow
+        Session::set('resultnow',$resultnow);
+
+
     $this->assign('name',$name);
     $this->assign('resultday1',$resultday1);
     $this->assign('resultday2',$resultday2);
@@ -199,6 +217,7 @@ class Index extends Controller
     $this->assign('resultday5',$resultday5);
     $this->assign('resultday6',$resultday6);
     $this->assign('resultday7',$resultday7);
+    $this->assign('resultnow',$resultnow);
 
 
     return $this->fetch('zhuye');
@@ -222,6 +241,7 @@ class Index extends Controller
         $this->assign('name',$name);
         $this->assign('resultcli',$resultcli);
         $this->assign('resultfri',$resultfri);
+        $this->assign('resultnow',Session::get('resultnow'));
 
         return $this->fetch('message');
     }
@@ -272,7 +292,7 @@ class Index extends Controller
     $this->assign('resultday5',$resultday5);
     $this->assign('resultday6',$resultday6);
     $this->assign('resultday7',$resultday7);
-
+    $this->assign('resultnow',Session::get('resultnow'));
         return $this->fetch('agenda');
     }
 
@@ -284,13 +304,21 @@ class Index extends Controller
         $name =Session::get('name');
         $this->assign('name',$name);
         $this->assign('result',$result);
+        $this->assign('resultnow',Session::get('resultnow'));
         return $this->fetch('contacts');
+
     }
     
     public function medias()
     {
        $name =Session::get('name');
         $this->assign('name',$name);
+        $this->assign('resultnow',Session::get('resultnow'));
+
+
+        $result = Db::table('file')
+        ->select();
+        $this->assign('result',$result);
         return $this->fetch('medias');
     }
 
@@ -334,6 +362,22 @@ class Index extends Controller
         } else {
             //错误页面的默认跳转页面是返回前一页，通常不需要设置
             $this->error('删除失败');
+        }   
+    }
+
+       public function cleanagenda()
+    {
+      
+        $map['username']=Session::get('name');        
+        $result = Db::table('agenda')
+        ->where($map)
+        ->delete();
+        if($result){
+            //设置成功后跳转页面的地址，默认的返回页面是$_SERVER['HTTP_REFERER']
+            $this->success('日程全部清空成功','index/index/agenda');
+        } else {
+            //错误页面的默认跳转页面是返回前一页，通常不需要设置
+            $this->error('日程清空失败');
         }   
     }
 
@@ -387,6 +431,7 @@ class Index extends Controller
         ->where('name',$name)
         ->find();
         $this->assign('result',$result);
+        $this->assign('resultnow',Session::get('resultnow'));
         return $this->fetch('personal');
             
     }
@@ -435,6 +480,37 @@ class Index extends Controller
 
     }
 
+
+    public function upfile(Request $request)
+    {
+         $file = request()->file('file');
+    // 移动到框架应用根目录/public/uploads/ 目录下
+    $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads');
+
+        if($info){
+            $data =[
+        'filename'=>$info->getFilename(),
+        'filezui'=>$info->getExtension(),
+        'status'=>'公共'
+
+        ];
+
+        $result =  Db::table('file')->insert($data);
+        if($result){
+        $this->success('上传成功','index/index/medias');
+        } else {
+            //错误页面的默认跳转页面是返回前一页，通常不需要设置
+            $this->error('上传失败');
+        }
+    }
+        
+    }
+
+    public function download(){
+
+
+        echo 2333;
+    }
 
 
 }

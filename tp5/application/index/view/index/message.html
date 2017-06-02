@@ -23,7 +23,7 @@
 	<link rel="stylesheet" href="__PUBLIC__/css/reset.css?v=1">
 	<link rel="stylesheet" href="__PUBLIC__/css/style.css?v=1">
 	<link rel="stylesheet" href="__PUBLIC__/css/colors.css?v=1">
-	<link rel="stylesheet" media="print" href="css/print.css?v=1">
+	<link rel="stylesheet" media="print" href="__PUBLIC__/css/print.css?v=1">
 	<!-- For progressively larger displays -->
 	<link rel="stylesheet" media="only all and (min-width: 480px)" href="__PUBLIC__/css/480.css?v=1">
 	<link rel="stylesheet" media="only all and (min-width: 768px)" href="__PUBLIC__/css/768.css?v=1">
@@ -124,16 +124,23 @@
 													<a></a>
 												{else /} 
 													<a href="#" class="new-message" title="Mark as read">New</a>
-												{/if}
-												
+												{/if}	
 											</span>
+
 											<span class="message-info">
 												<span class="blue">{$vo.mtime}</span>
 											</span>
-											<a href="ajax-demo/inbox-message.html" title="Read message">
+
+											<a href="javascript:a();" title="Read message">
 												<strong class="blue">{$vo.msend}</strong><br>
-												{$vo.mtitle}
+												{$vo.mtitle}{$vo.mthing}
 											</a>
+											<script type="text/javascript">
+												functions a()
+												{
+													alert("www");
+												}
+											</script>
 											</li>
 										{/volist}	
 									</ul>
@@ -161,53 +168,16 @@
 											<span class="message-info">
 												<span class="blue">{$vo.mtime}</span>
 											</span>
-											<a href="ajax-demo/inbox-message.html" title="Read message">
+											<a href="" title="Read message">
 												<strong class="blue">{$vo.msend}</strong><br>
 												{$vo.mtitle}
 											</a>
 											</li>
+											
 										{/volist}		
 									</ul>
 								</li>
-								<li class="message-menu">
-									<span class="message-status">
-										<a href="#" class="starred" title="Starred">Starred</a>
-										<a href="#" class="new-message" title="Mark as read">New</a>
-									</span>
-									<span class="message-info">
-										<span class="blue">17:12</span>
-										<a href="#" class="attach" title="Download attachment">Attachment</a>
-									</span>
-									<a href="ajax-demo/inbox-message.html" title="Read message">
-										<strong class="blue">John Doe</strong><br>
-										<strong>Mail subject</strong>
-									</a>
-								</li>
-								<li class="message-menu">
-									<span class="message-status">
-										<a href="#" class="unstarred" title="Not starred">Not starred</a>
-										<a href="#" class="new-message" title="Mark as read">New</a>
-									</span>
-									<span class="message-info">
-										<span class="blue">15:47</span>
-									</span>
-									<a href="ajax-demo/inbox-message.html" title="Read message">
-										<strong class="blue">May Starck</strong><br>
-										<strong>Mail subject a bit longer</strong>
-									</a>
-								</li>
-								<li class="message-menu">
-									<span class="message-status">
-										<a href="#" class="unstarred" title="Not starred">Not starred</a>
-									</span>
-									<span class="message-info">
-										<span class="blue">15:12</span>
-									</span>
-									<a href="ajax-demo/inbox-message.html" title="Read message">
-										<strong class="blue">May Starck</strong><br>
-										Read message
-									</a>
-								</li>
+								
 							</ul>
 
 						</div>
@@ -228,7 +198,7 @@
 
 					<div class="panel-load-target scrollable with-padding" style="height:450px">
 
-						<h2 class="thin mid-margin-bottom">$vo.mtitle</h2>
+						<h2 class="thin mid-margin-bottom" id="title"></h2>
 						<h4 class="no-margin-top">$vo.msend</h4>
 
 						<div class="large-box-shadow white-gradient with-border">
@@ -318,13 +288,68 @@
 				<li class="title-menu">Today's event</li>
 				<li>
 					<ul class="calendar-menu">
+						{volist name="resultnow" id="vo"}
 						<li>
-							<a href="#" title="See event">
-								<time datetime="2011-02-24"><b>24</b> Feb</time>
-								<small class="green">10:30</small>
-								Event's description
+							<a href="{:url('index/index/agenda')}" title="See event">
+								<time ><b><span id="idata"></span></b> <span id="imonth"></span></time>
+								<small class="green">
+									<script type="text/javascript">
+									var d = new Date()
+									var date=d.getDate();
+									var month=d.getMonth();
+									switch(month+1)
+{
+
+	case 1:
+	month = "Jan";
+	break;
+	case 2:
+	month = "Feb";
+	break;
+	case 3:
+	month = "Mar";
+	break;
+	case 4:
+	month = "Apr";
+	break;
+	case 5:
+	month = "MAY";
+	break;
+	case 6:
+	month = "Jun";
+	break;
+	case 7:
+	month = "Jul";
+	break;
+	case 8:
+	month = "Aug";
+	break;
+	case 9:
+	month = "Sep";
+	break;
+	case 10:
+	month = "Oct";
+	break;
+	case 11:
+	month = "Nov";
+	break;
+	case 12:
+	month = "Dec";
+	break;
+	default:
+	month = "this is a bug";
+}
+									 document.getElementById('idata').innerHTML=date;
+									 document.getElementById('imonth').innerHTML=month;
+									document.write(d.getHours())
+									document.write(":")
+									document.write(d.getMinutes())
+									</script>
+								</small>
+							{$vo.thing}
 							</a>
 						</li>
+						{/volist}
 					</ul>
 				</li>
 				<li class="title-menu">New messages</li>

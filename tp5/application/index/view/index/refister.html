@@ -1,9 +1,63 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <title> 注册</title>
-           
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- Le styles -->
+        <link href="__PUBLIC__/css/bootstrap.css" rel="stylesheet">
+        <style type="text/css">
+            body {
+                padding-top: 40px;
+                padding-bottom: 40px;
+                background-image: url(__PUBLIC__/img/login-bg.png);
+                background-repeat: no-repeat;
+                background-size: 100% auto;
+            }
+
+            .form-signin {
+                max-width: 300px;
+                padding: 19px 29px 29px;
+                margin: 100px auto 20px;
+                margin-right: 400px;
+                background-color: #fff;
+                border: 1px solid #e5e5e5;
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+                -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+            }
+            .form-signin .form-signin-heading,
+            .form-signin .checkbox {
+                margin-bottom: 10px;
+            }
+            .form-signin input[type="text"],
+            .form-signin input[type="password"] {
+                font-size: 16px;
+                height: auto;
+                margin-bottom: 15px;
+                padding: 7px 9px;
+            }
+
+        </style>
+        <link href="__PUBLIC__/css/bootstrap-responsive.css" rel="stylesheet">
+
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="includes/js/html5shiv.js"></script>
+        <![endif]-->
+
+        <!-- Fav and touch icons -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="__PUBLIC__/img/logo-144.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="__PUBLIC__/img/logo-114.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="__PUBLIC__/img/logo-72.png">
+        <link rel="apple-touch-icon-precomposed" href="__PUBLIC__/img/logo-57.png">
+        <link rel="shortcut icon" href="__PUBLIC__/img/logo.png">
         <script type="text/javascript">
         function clean()
         {
@@ -43,55 +97,55 @@
         })
 })
         </script>
-
-    </head>
+   </head>
     <body>
     <h3 align="center">用户注册</h3>
-  			<form action="checkrefister" method="post" id="form1">
-  			<div style="text-align: center;margin: 10px 5px 10px 5px ">
-  			<td>用户名</td>
-  			<input type="text" name="name" value="" id="name" required="required">
+        <form action="checkrefister" method="post" id="form1">
+        <div style="text-align: center;margin: 10px 5px 10px 5px ">
+        <td>用户名</td>
+        <input type="text" name="name" value="" id="name" required="required">
         <label id="namelable"></label>
-  			</div>
+        </div>
 
-  			<div style="text-align: center;margin: 10px 5px 10px 5px">
-  			<td>密码</td>
-  			<input type="password" name="pwd" value="" id = "pwd" required="required">
+        <div style="text-align: center;margin: 10px 5px 10px 5px">
+        <td>密码</td>
+        <input type="password" name="pwd" value="" id = "pwd" required="required">
         <label id="pwdlable"></label>
-  			</div>
+        </div>
 
-  			<div style="text-align: center;margin: 10px 5px 10px 5px">
-  			<tr>重复密码</tr>
-  			<input type="respassword" name="respwd" value="" id="respwd" required="required">
+        <div style="text-align: center;margin: 10px 5px 10px 5px">
+        <tr>重复密码</tr>
+        <input type="password" name="respwd" value="" id="respwd" required="required">
         <label id="respwdlable"></label>
-  			</div>
+        </div>
 
         <div style="text-align: center;margin: 10px 5px 10px 5px">
         <tr>性别</tr>
-        <input type="text" name="sex" value="" id="sex">
+        <select id="sex" name="sex" type="text">
+                <option value="">Please select</option>
+                <option value="男">male</option>
+                <option value="女">famale</option>
+        </select>
+        <div style="text-align: center;margin: 10px 5px 10px 5px">
+        <tr>email</tr>
+        <input type="email" name="email" value="" id="email">
         </div>
 
-  			<div style="text-align: center;margin: 10px 5px 10px 5px">
-  			<tr>email</tr>
-  			<input type="email" name="email" value="" id="email">
-  			</div>
+        <div style="text-align: center;margin: 10px 5px 10px 5px">
+        <tr>qq</tr>
+        <input type="text" name="qq" value="" id="qq">
+        </div>
 
-  			<div style="text-align: center;margin: 10px 5px 10px 5px">
-  			<tr>qq</tr>
-  			<input type="text" name="qq" value="" id="qq">
-  			</div>
+        <div style="text-align: center;margin: 10px 5px 10px 5px">
+        <tr>tel</tr>
+        <input type="tel" name="tel" value="" id="tel">
+        </div>
 
-  			<div style="text-align: center;margin: 10px 5px 10px 5px">
-  			<tr>tel</tr>
-  			<input type="tel" name="tel" value="" id="tel">
-  			</div>
-
-  			<div style="text-align: center;margin: 10px 5px 10px 5px">
-  			<button type="submit">提交</button>
-  			<button type="button" onclick="clean();">清零</button>
+        <div style="text-align: center;margin: 10px 5px 10px 5px">
+        <button type="submit">提交</button>
+        <button type="button" onclick="clean();">清零</button>
       
-  			</div>
-  			</form>
-    </body>
+        </div>
+        </form>
 </html>
 

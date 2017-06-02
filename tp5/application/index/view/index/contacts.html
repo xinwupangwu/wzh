@@ -119,9 +119,7 @@
 					</tr>
 				</tfoot>
 
-				<tbody>
-					
-					
+				<tbody>					
 						{volist name="result" id="vo"}
 						<tr>
 						<th scope="row" class="checkbox-cell"><input type="checkbox" name="checked[]" id="check-1" value="1"></th>
@@ -136,10 +134,6 @@
 				</tbody>
 
 			</table>
-			
-			
-
-		
 
 		</div>
 
@@ -188,13 +182,68 @@
 				<li class="title-menu">Today's event</li>
 				<li>
 					<ul class="calendar-menu">
+						{volist name="resultnow" id="vo"}
 						<li>
-							<a href="#" title="See event">
-								<time datetime="2011-02-24"><b>24</b> Feb</time>
-								<small class="green">10:30</small>
-								Event's description
+							<a href="{:url('index/index/agenda')}" title="See event">
+								<time ><b><span id="idata"></span></b> <span id="imonth"></span></time>
+								<small class="green">
+									<script type="text/javascript">
+									var d = new Date()
+									var date=d.getDate();
+									var month=d.getMonth();
+									switch(month+1)
+{
+
+	case 1:
+	month = "Jan";
+	break;
+	case 2:
+	month = "Feb";
+	break;
+	case 3:
+	month = "Mar";
+	break;
+	case 4:
+	month = "Apr";
+	break;
+	case 5:
+	month = "MAY";
+	break;
+	case 6:
+	month = "Jun";
+	break;
+	case 7:
+	month = "Jul";
+	break;
+	case 8:
+	month = "Aug";
+	break;
+	case 9:
+	month = "Sep";
+	break;
+	case 10:
+	month = "Oct";
+	break;
+	case 11:
+	month = "Nov";
+	break;
+	case 12:
+	month = "Dec";
+	break;
+	default:
+	month = "this is a bug";
+}
+									 document.getElementById('idata').innerHTML=date;
+									 document.getElementById('imonth').innerHTML=month;
+									document.write(d.getHours())
+									document.write(":")
+									document.write(d.getMinutes())
+									</script>
+								</small>
+							{$vo.thing}
 							</a>
 						</li>
+						{/volist}
 					</ul>
 				</li>
 				<li class="title-menu">New messages</li>

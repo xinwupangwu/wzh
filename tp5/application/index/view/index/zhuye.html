@@ -484,9 +484,10 @@ document.getElementById('imonth').innerHTML=month;
 
 				<li>
 					<ul class="calendar-menu">
+					{volist name="resultnow" id="vo"}
 						<li>
-							<a href="#" title="See event">
-								<time datetime="2011-02-24"><b><span id="idata"></span></b> <span id="imonth"></span></time>
+							<a href="{:url('index/index/agenda')}" title="See event">
+								<time ><b><span id="idata"></span></b> <span id="imonth"></span></time>
 								<small class="green">
 									<script type="text/javascript">
 									var d = new Date()
@@ -495,9 +496,10 @@ document.getElementById('imonth').innerHTML=month;
 									document.write(d.getMinutes())
 									</script>
 								</small>
-								Event's description
+							{$vo.thing}
 							</a>
 						</li>
+						{/volist}
 					</ul>
 				</li>
 
@@ -838,7 +840,7 @@ document.getElementById('imonth').innerHTML=month;
 		}
 		else
 		{
-			idata = iWeek+3;
+			idata = iWeek+4;
 		}
 		// Remote controls
 		$('#agenda-previous').click(function(event)

@@ -101,7 +101,7 @@
 			<span class="button-group ">
 				<a href="javascript:openModal1()" title="Add user" class="button icon-plus-round">add</a>
 				<a href="javascript:openModal2()" title="Add user" class="button icon-plus-round">delect</a>
-				<a href="javascript:openLoadingModal()" title="Reload list" class="button icon-redo"></a>
+				<a href="{:url('index/index/cleanagenda')}" title="Add user" class="button icon-plus-round">clean</a>
 			</span>
 			</p>
 
@@ -291,13 +291,68 @@
 				<li class="title-menu">Today's event</li>
 				<li>
 					<ul class="calendar-menu">
+						{volist name="resultnow" id="vo"}
 						<li>
-							<a href="#" title="See event">
-								<time datetime="2011-02-24"><b>24</b> Feb</time>
-								<small class="green">10:30</small>
-								Event's description
+							<a href="{:url('index/index/agenda')}" title="See event">
+								<time ><b><span id="idata"></span></b> <span id="imonth"></span></time>
+								<small class="green">
+									<script type="text/javascript">
+									var d = new Date()
+									var date=d.getDate();
+									var month=d.getMonth();
+									switch(month+1)
+{
+
+	case 1:
+	month = "Jan";
+	break;
+	case 2:
+	month = "Feb";
+	break;
+	case 3:
+	month = "Mar";
+	break;
+	case 4:
+	month = "Apr";
+	break;
+	case 5:
+	month = "MAY";
+	break;
+	case 6:
+	month = "Jun";
+	break;
+	case 7:
+	month = "Jul";
+	break;
+	case 8:
+	month = "Aug";
+	break;
+	case 9:
+	month = "Sep";
+	break;
+	case 10:
+	month = "Oct";
+	break;
+	case 11:
+	month = "Nov";
+	break;
+	case 12:
+	month = "Dec";
+	break;
+	default:
+	month = "this is a bug";
+}
+									 document.getElementById('idata').innerHTML=date;
+									 document.getElementById('imonth').innerHTML=month;
+									document.write(d.getHours())
+									document.write(":")
+									document.write(d.getMinutes())
+									</script>
+								</small>
+							{$vo.thing}
 							</a>
 						</li>
+						{/volist}
 					</ul>
 				</li>
 				<li class="title-menu">New messages</li>
@@ -406,7 +461,8 @@
 						  '<div style="text-align: center;margin: 10px 5px 10px 5px "><td>议程结束时间</td><input type="text" name="timeend" value="" required="required"></div>'+
 						  '<div style="text-align: center;margin: 10px 5px 10px 5px "><td>议程时间</td><input type="text" name="timeprocess" value="" required="required"></div>'+
 						  '<div style="text-align: center;margin: 10px 5px 10px 5px "><td>议程事件</td><input type="text" name="thing" value="" required="required"></div>'+
-						  '<div style="text-align: center;margin: 10px 5px 10px 5px "><td>议程重要性</td><input type="text" name="status" value="" required="required"></div>'+
+						  '<div style="text-align: center;margin: 10px 5px 10px 5px "><td>议程重要性</td>'+
+						  '<select type="text" name="status" ><option value="">Please select</option><option value="agenda-event">普通</option>			<option value="agenda-event anthracite-gradient">重要</option><option value="agenda-event blue-gradient">首要</option></select></div>'+
 						  '<button type="submit">提交</button>'+
 						  '</ul>'+
 						  '</form>',
