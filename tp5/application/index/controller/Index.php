@@ -63,6 +63,8 @@ class Index extends Controller
         echo date('w');
 
         dump(Session::get('resultnow'));
+        dump(Session::get('nowpeople'));
+        echo Session::get('nowpeople.ustatus');
 
 
     }
@@ -71,7 +73,7 @@ class Index extends Controller
     public function index()
     {
 
-       //return view();
+    
         $this->redirect(url('index/index/login'));
       
     }
@@ -85,26 +87,26 @@ class Index extends Controller
 
     public function checklogin(Request $request)
     {
-        //dump($request->post('name')); 
-        //dump($request->post('pwd')); 
+      
         $map['name'] = $request->post('name');
         $map['pwd'] = $request->post('pwd');
         $data = $request->post('name');
-        //session 获得 name
-       Session::set('name',$data);
+      
 
         // 把查询条件传入查询方法
         $result = Db::table('user')->where($map)->find(); 
-
-        //session 获得 id
-        Session::set('uid',$result['id']);
+       
+        
 
         if($result){
-            //设置成功后跳转页面的地址，默认的返回页面是$_SERVER['HTTP_REFERER']
-            //$this->success('登入成功','index/index/zhuye',array('map' =>$map));
+            //设置成功后跳转页面的地址
+            //$this->success('登入成功','index/index/zhuye',array('map' =>$map)); 
+            //session 获得 now 用户的信息
+ 
+            Session::set('nowpeople',$result);
             $this->redirect('index/index/zhuye');
         } else {
-            //错误页面的默认跳转页面是返回前一页，通常不需要设置
+            //错误页面的默认跳转页面是返回前一页
             $this->error('登入失败');
         }
             //dump($result);        
@@ -120,12 +122,11 @@ class Index extends Controller
 
     public function checkrefister(Request $request)
     {
-         //dump($request->post());
         $map['name'] = $request->post('name');
         $check = Db::table('user')->where($map)->find();
         if($request->post('pwd') != $request->post('respwd'))
         {
-            //alter("两次密码不一致");
+          
             //$this->redirect(url('index/index/refister'));
              $this->error("两次密码不一致");
         }
@@ -149,10 +150,10 @@ class Index extends Controller
         ] ;
        $result =  Db::table('user')->insert($data);
         if($result){
-            //设置成功后跳转页面的地址，默认的返回页面是$_SERVER['HTTP_REFERER']
+            //设置成功后跳转页面的地址
             $this->success('注册成功','index/index/login');
         } else {
-            //错误页面的默认跳转页面是返回前一页，通常不需要设置
+            //错误页面的默认跳转页面是返回前一页
             $this->error('新增失败');
         }  
         }
@@ -163,7 +164,7 @@ class Index extends Controller
     public function zhuye()
     {
        
-        $name =  Session::get('name');
+        $name =  Session::get('nowpeople.name');
 
         $resultday1 = Db::table('agenda')
         ->where('username',$name)
@@ -209,7 +210,7 @@ class Index extends Controller
         Session::set('resultnow',$resultnow);
 
 
-    $this->assign('name',$name);
+    $this->assign('nowpeople',Session::get('nowpeople'));
     $this->assign('resultday1',$resultday1);
     $this->assign('resultday2',$resultday2);
     $this->assign('resultday3',$resultday3);
@@ -227,7 +228,9 @@ class Index extends Controller
 
     public function message()
     {
-        $name =Session::get('name');
+        $name =Session::get('nowpeople.name');
+      
+
         $resultcli = Db::table('message')
         ->where('mrec',$name)
         ->where('mstatus','Clients')
@@ -238,7 +241,7 @@ class Index extends Controller
         ->where('mstatus','Friends')
         ->select();
        
-        $this->assign('name',$name);
+        $this->assign('nowpeople',Session::get('nowpeople'));
         $this->assign('resultcli',$resultcli);
         $this->assign('resultfri',$resultfri);
         $this->assign('resultnow',Session::get('resultnow'));
@@ -248,7 +251,7 @@ class Index extends Controller
 
     public function agenda()
     {
-        $name =Session::get('name');
+        $name =Session::get('nowpeople.name');
         $resultday1 = Db::table('agenda')
         ->where('username',$name)
         ->where('day',1)
@@ -284,7 +287,7 @@ class Index extends Controller
         ->where('day',7)
         ->select();
 
-    $this->assign('name',$name);
+    $this->assign('nowpeople',Session::get('nowpeople'));
     $this->assign('resultday1',$resultday1);
     $this->assign('resultday2',$resultday2);
     $this->assign('resultday3',$resultday3);
@@ -293,7 +296,7 @@ class Index extends Controller
     $this->assign('resultday6',$resultday6);
     $this->assign('resultday7',$resultday7);
     $this->assign('resultnow',Session::get('resultnow'));
-        return $this->fetch('agenda');
+    return $this->fetch('agenda');
     }
 
     public function contacts()
@@ -301,8 +304,8 @@ class Index extends Controller
 
         $result = Db::table('user')
         ->select();
-        $name =Session::get('name');
-        $this->assign('name',$name);
+        $name =Session::get('nowpeople.name');
+        $this->assign('nowpeople',Session::get('nowpeople'));
         $this->assign('result',$result);
         $this->assign('resultnow',Session::get('resultnow'));
         return $this->fetch('contacts');
@@ -311,8 +314,8 @@ class Index extends Controller
     
     public function medias()
     {
-       $name =Session::get('name');
-        $this->assign('name',$name);
+       $name =Session::get('nowpeople.name');
+        $this->assign('nowpeople',Session::get('nowpeople'));
         $this->assign('resultnow',Session::get('resultnow'));
 
 
@@ -328,7 +331,7 @@ class Index extends Controller
     {
         
          $data =[
-        'username' => Session::get('name'),
+        'username' => Session::get('nowpeople.name'),
         'day' =>$request->post('day'),
         'timestart' =>'-'.$request->post('timestart'),
         'timeend' =>'-'.$request->post('timeend'),
@@ -339,11 +342,10 @@ class Index extends Controller
 
         $result =  Db::table('agenda')->insert($data);
         if($result){
-            //设置成功后跳转页面的地址，默认的返回页面是$_SERVER['HTTP_REFERER']
+            //设置成功后跳转页面的地址
             $this->success('新增成功','index/index/agenda');
         } else {
-            //错误页面的默认跳转页面是返回前一页，通常不需要设置
-            $this->error('新增失败');
+            //错误页面的默认跳转页面是返回前一页
         }    
     }
 
@@ -368,7 +370,7 @@ class Index extends Controller
        public function cleanagenda()
     {
       
-        $map['username']=Session::get('name');        
+        $map['username']=Session::get('nowpeople.name');        
         $result = Db::table('agenda')
         ->where($map)
         ->delete();
@@ -385,7 +387,7 @@ class Index extends Controller
     {
         
          $data =[
-        'name' => $request->post('name'),
+        'name' => $request->post('nowpeople.name'),
         'ustatus' => $request->post('ustatus'),
         'tag'=>$request->post('tag')
         ];
@@ -425,11 +427,13 @@ class Index extends Controller
 
         public function personal()
     {   
-        $name =Session::get('name');
-        $this->assign('name',$name);
+        $name =Session::get('nowpeople.name');
+        $this->assign('nowpeople',Session::get('nowpeople'));
+
         $result = Db::table('user')
         ->where('name',$name)
         ->find();
+
         $this->assign('result',$result);
         $this->assign('resultnow',Session::get('resultnow'));
         return $this->fetch('personal');
@@ -462,7 +466,7 @@ class Index extends Controller
 
      public function updatapwd(Request $request)
     {
-        $id = Session::get('uid');
+        $id = Session::get('nowpeople.id');
         $data =[
         'pwd'=>$request->post('xpwd')
         ];
@@ -484,14 +488,17 @@ class Index extends Controller
     public function upfile(Request $request)
     {
          $file = request()->file('file');
+         $fname = request()->post('file');
     // 移动到框架应用根目录/public/uploads/ 目录下
-    $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads');
+    $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads','');
 
         if($info){
             $data =[
         'filename'=>$info->getFilename(),
         'filezui'=>$info->getExtension(),
-        'status'=>'公共'
+        'status'=>'公共',
+        'filetime'=>date("Y-m-d H:i:s"),
+        'filepeople'=>Session::get('nowpeople.name'),
 
         ];
 
@@ -506,11 +513,36 @@ class Index extends Controller
         
     }
 
-    public function download(){
+    public function download(Request $request){
 
 
-        echo 2333;
+    //$filename= "w129-1440x900.jpg";
+        $filename= $request->post('filename');
+    $filedir ="../uploads/";
+
+
+    if(!file_exists($filedir .$filename))
+    {
+        echo "文件未找到";
+        exit();
+    }
+    else
+    {
+        $file=fopen($filedir  .$filename, "r");
+        Header("Content-type:application/octet-stream");
+        Header("Accept-Ranges:bytes");
+        Header("Accept-Length:".filesize($filedir  .$filename));
+        Header("Content-Disposition:attachment;filename".$filename);
+        echo fead($file,filesize($filedir  .$filename));
+        fclose($file);
+        exit();
     }
 
+     
+
+
+    }
+
+    
 
 }

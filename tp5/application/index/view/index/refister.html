@@ -99,53 +99,57 @@
         </script>
    </head>
     <body>
+    <div style="text-align: center;"> 
     <h3 align="center">用户注册</h3>
         <form action="checkrefister" method="post" id="form1">
-        <div style="text-align: center;margin: 10px 5px 10px 5px ">
-        <td>用户名</td>
+
+        <div style="text-align: center;margin: 10px 0px 10px 0px ">
+        <td>用户名&nbsp;</td>
         <input type="text" name="name" value="" id="name" required="required">
         <label id="namelable"></label>
         </div>
 
-        <div style="text-align: center;margin: 10px 5px 10px 5px">
-        <td>密码</td>
+        <div style="text-align: center;margin: 10px 0px 10px 0px">
+        <td>密码&nbsp;&nbsp;</td>
         <input type="password" name="pwd" value="" id = "pwd" required="required">
         <label id="pwdlable"></label>
         </div>
 
-        <div style="text-align: center;margin: 10px 5px 10px 5px">
+        <div style="text-align: center;margin: 10px 0px 10px 0px">
         <tr>重复密码</tr>
         <input type="password" name="respwd" value="" id="respwd" required="required">
         <label id="respwdlable"></label>
         </div>
 
-        <div style="text-align: center;margin: 10px 5px 10px 5px">
-        <tr>性别</tr>
+        <div style="text-align: center;margin: 10px 0px 10px 0px">
+        <tr>性别&nbsp;&nbsp;</tr>
         <select id="sex" name="sex" type="text">
                 <option value="">Please select</option>
                 <option value="男">male</option>
                 <option value="女">famale</option>
         </select>
-        <div style="text-align: center;margin: 10px 5px 10px 5px">
-        <tr>email</tr>
+        <div style="text-align: center;margin: 10px 0px 10px 0px">
+        <tr>email&nbsp;&nbsp;</tr>
         <input type="email" name="email" value="" id="email">
         </div>
 
-        <div style="text-align: center;margin: 10px 5px 10px 5px">
-        <tr>qq</tr>
+        <div style="text-align: center;margin: 10px 0px 10px 0px">
+        <tr>qq&nbsp;&nbsp;</tr>
         <input type="text" name="qq" value="" id="qq">
         </div>
 
-        <div style="text-align: center;margin: 10px 5px 10px 5px">
-        <tr>tel</tr>
+        <div style="text-align: center;margin: 10px 0px 10px 0px">
+        <tr>tel&nbsp;&nbsp;</tr>
         <input type="tel" name="tel" value="" id="tel">
         </div>
 
-        <div style="text-align: center;margin: 10px 5px 10px 5px">
+        <div style="text-align: center;margin: 10px 0px 10px 0px">
         <button type="submit">提交</button>
         <button type="button" onclick="clean();">清零</button>
       
         </div>
+       
         </form>
+    </div>
 </html>
 

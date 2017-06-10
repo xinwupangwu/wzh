@@ -65,6 +65,16 @@
 
 	<!-- Microsoft clear type rendering -->
 	<meta http-equiv="cleartype" content="on">
+
+	<script language="JavaScript" type="text/javascript">
+
+	function d()
+	{
+
+		alert("2333");
+	}
+	</script>
+
 </head>
 
 <body class="clearfix with-menu with-shortcuts">
@@ -77,6 +87,8 @@
 		<h2>Paperless Office <a href="#" target="_blank" title="无纸化办公">无纸化办公</a></h2>
 	</header>
 
+		
+												
 	<!-- Button to open/hide menu -->
 	<a href="#" id="open-menu"><span>Menu</span></a>
 
@@ -89,7 +101,7 @@
 		<noscript class="message black-gradient simpler">Your browser does not support JavaScript! Some features won't work as expected...</noscript>
 
 		<hgroup id="main-title" class="thin">
-			<h1>Messages</h1>
+			<h1>消息</h1>
 		</hgroup>
 
 		<div class="with-padding">
@@ -131,16 +143,11 @@
 												<span class="blue">{$vo.mtime}</span>
 											</span>
 
-											<a href="javascript:a();" title="Read message">
+											<a  href="javascript:void(0);" onclick="d()" title="Read message">
 												<strong class="blue">{$vo.msend}</strong><br>
 												{$vo.mtitle}{$vo.mthing}
 											</a>
-											<script type="text/javascript">
-												functions a()
-												{
-													alert("www");
-												}
-											</script>
+											
 											</li>
 										{/volist}	
 									</ul>
@@ -168,7 +175,7 @@
 											<span class="message-info">
 												<span class="blue">{$vo.mtime}</span>
 											</span>
-											<a href="" title="Read message">
+											<a  href="javascript:void(0);" onclick="d()" title="Read message">
 												<strong class="blue">{$vo.msend}</strong><br>
 												{$vo.mtitle}
 											</a>
@@ -265,13 +272,13 @@
 		<div id="menu-content">
 
 			<header>
-				Administrator
+				{$nowpeople.ustatus}
 			</header>
 
 			<div id="profile">
 				<img src="__PUBLIC__/img/user.png" width="64" height="64" alt="User name" class="user-icon">
 				Hello
-				<span class="name">{$name}</span>
+				<span class="name">{$nowpeople.name}</span>
 			</div>
 
 			<!-- By default, this section is made for 4 icons, see the doc to learn how to change this, in "basic markup explained" -->

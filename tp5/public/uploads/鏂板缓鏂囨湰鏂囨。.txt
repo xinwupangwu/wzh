@@ -1,0 +1,12 @@
+<form action="upfile" method="post" enctype="multipart/form-data">
+
+		<p class="button-height">
+			<input type="file" name="file" id="file" value="ÇëÑ¡ÔñÎÄ¼þ" class="file" multiple>
+		</p>
+	
+		<p class="button-height">
+			<button type="submit" class="button big">Button</button>
+		</p>
+	
+		</form>
+		
